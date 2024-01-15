@@ -8,7 +8,7 @@ import NavigationItem from "./navigation-item";
 import { ModeToggle } from "../mode-toggle";
 import { UserButton } from "@clerk/nextjs";
 
-export const NagivationSidebar = async () => {
+export const NavigationSidebar = async () => {
     const profile = await currentProfile();
 
     if (!profile) {

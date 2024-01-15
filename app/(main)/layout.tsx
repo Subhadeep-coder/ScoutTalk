@@ -1,4 +1,4 @@
-import { NagivationSidebar } from '@/components/navigation/nagivation-sidebar';
+import { NavigationSidebar } from '@/components/navigation/nagivation-sidebar';
 import React from 'react'
 
 type Props = {
@@ -9,7 +9,7 @@ const MainLayout = ({ children }: Props) => {
     return (
         <div className='h-full'>
             <div className="hidden md:flex h-full w-[72px] z-30 flex-col fixed inset-y-0">
-                <NagivationSidebar />
+                <NavigationSidebar />
             </div>
             <main className='md:pl-[72px] h-full'>
                 {children}
