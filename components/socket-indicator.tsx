@@ -9,14 +9,14 @@ export const SocketIndicator = () => {
     if (!isConnected) {
         return (
             <Badge variant="outline" className="text-white bg-yellow-600 border-none">
-
+                Fallback
             </Badge>
         )
     }
 
     return (
-        <Badge variant="outline" className="text-white bg-yellow-600 border-none">
-
+        <Badge variant="outline" className="text-white bg-green-600 border-none">
+            Live Updates
         </Badge>
     )
 }
