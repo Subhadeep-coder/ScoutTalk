@@ -22,7 +22,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
         if (!content) {
             return res.status(400).json({ message: "Content missing" });
         }
-
+        console.log('Finding conversations');
+        console.log('Conversation Id:', conversationId);
         const conversation = await db.conversation.findFirst({
             where: {
                 id: conversationId as string,
@@ -52,7 +53,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
                 },
             }
         });
-
+        console.log('Found conversations');
         if (!conversation) {
             return res.status(400).json({ message: "Content missing" });
         }
@@ -62,7 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
         if (!member) {
             return res.status(400).json({ message: "Member not found" });
         }
-
+        console.log('Creating message');
         const message = await db.directMessage.create({
             data: {
                 content,
@@ -86,7 +87,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponseS
         res.status(200).json(message);
 
     } catch (error) {
-        console.log("[MESSAGES_POST]", error);
+        console.log("[DIRECT_MESSAGES_POST]", error);
         return res.status(500).json({ message: "Internal Error" });
     }
 }

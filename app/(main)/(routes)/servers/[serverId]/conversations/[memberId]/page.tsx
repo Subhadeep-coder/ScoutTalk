@@ -38,6 +38,7 @@ const MemberIdPage = async ({ params }: Props) => {
   if (!conversation) {
     return redirect(`/servers?${params.serverId}`);
   }
+  console.log('ConversationId:', conversation.id);
 
   const { memberOne, memberTwo } = conversation;
   const otherMember = memberOne.profileId === profile.id ? memberTwo : memberOne;
@@ -67,7 +68,7 @@ const MemberIdPage = async ({ params }: Props) => {
         type="conversation"
         apiUrl='/api/socket/direct-messages'
         query={{
-          conversationId: conversation
+          conversationId: conversation.id
         }}
       />
     </div>
