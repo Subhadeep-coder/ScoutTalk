@@ -123,7 +123,8 @@ const ChatItem = ({
     const canEditMessage = !deleted && isOwner && !fileUrl;
 
     const isPDF = fileType === "pdf" && fileUrl;
-    const isImage = !isPDF && fileUrl;
+    const isVideo = fileUrl && fileType === "mp4";
+    const isImage = !isPDF && !isVideo && fileUrl;
 
     return (
         <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
@@ -148,6 +149,21 @@ const ChatItem = ({
                             {timeStamp}
                         </span>
                     </div>
+                    {
+                        isVideo && (
+                            <a
+                                href={fileUrl}
+                                target="_blank"
+                                rel='noopener noreferrer'
+                                className='relative aspect-square mt-2 rounded-md overflow-hidden border flex items-center bg-secondary h-48 w-48'
+                            >
+                                <video
+                                    src={fileUrl}
+                                    className="object-cover aspect-auto"
+                                />
+                            </a>
+                        )
+                    }
                     {
                         isImage && (
                             <a

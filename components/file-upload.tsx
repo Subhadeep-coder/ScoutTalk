@@ -18,7 +18,7 @@ const FileUpload = ({ endPoint, value, onChange }: Props) => {
 
     const fileType = value?.split(".").pop();
 
-    if (value && fileType !== "pdf") {
+    if (value && fileType !== "mp4" && fileType !== 'pdf') {
         return (
             <div className="relative h-20 w-20">
                 <Image
@@ -26,6 +26,23 @@ const FileUpload = ({ endPoint, value, onChange }: Props) => {
                     src={value}
                     alt='Upload'
                     className="rounded-full"
+                />
+                <button
+                    onClick={() => onChange("")}
+                    className='bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm'
+                    type="button"
+                >
+                    <X className='h-4 w-4' />
+                </button>
+            </div>
+        )
+    }
+    if (value && fileType === "mp4") {
+        return (
+            <div className="relative h-20 w-20">
+                <video
+                    src={value}
+                    className="aspect-auto"
                 />
                 <button
                     onClick={() => onChange("")}
