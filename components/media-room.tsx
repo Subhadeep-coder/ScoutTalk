@@ -5,6 +5,7 @@ import { LiveKitRoom, VideoConference } from "@livekit/components-react";
 import "@livekit/components-styles";
 import { useUser } from "@clerk/nextjs";
 import { Loader2 } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface MediaRoomProps {
     chatId: string;
@@ -19,12 +20,12 @@ export const MediaRoom = ({
 }: MediaRoomProps) => {
     const { user } = useUser();
     const [token, setToken] = useState("");
+    const [isDisconnected, setIsDisconnected] = useState(false);
 
     useEffect(() => {
         if (!user?.firstName || !user?.lastName) return;
 
         const name = `${user.firstName} ${user.lastName}`;
-
         (async () => {
             try {
                 const resp = await fetch(`/api/livekit?room=${chatId}&username=${name}`);
@@ -50,15 +51,35 @@ export const MediaRoom = ({
     }
 
     return (
-        <LiveKitRoom
-            data-lk-theme="default"
-            serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
-            token={token}
-            connect={true}
-            video={video}
-            audio={audio}
-        >
-            <VideoConference />
-        </LiveKitRoom>
+        <>
+            {
+                isDisconnected
+                    ? (
+                        <div className="flex justify-center items-center h-full w-full">
+
+                            <Button
+                                variant={`ghost`}
+                                className="bg-slate-700"
+                                onClick={() => {
+                                    setIsDisconnected(false);
+                                }}
+                            >
+                                Rejoin
+                            </Button>
+                        </div >
+                    )
+                    : <LiveKitRoom
+                        data-lk-theme="default"
+                        serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
+                        token={token}
+                        connect={true}
+                        video={video}
+                        audio={audio}
+                        onDisconnected={() => setIsDisconnected(true)}
+                    >
+                        <VideoConference />
+                    </LiveKitRoom>
+            }
+        </>
     )
 }
