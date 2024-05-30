@@ -6,6 +6,35 @@ html,
 body,
 :root {
   height: 100%;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 4px;
+  /* Adjust the width as needed */
+  height: 8px;
+  /* Adjust the height as needed */
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-zinc-700;
+  /* Background color of the scrollbar track */
+  border-radius: 10px;
+  /* Rounded corners for the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-800;
+  /* Color of the scrollbar thumb using Tailwind class */
+  border-radius: 10px;
+  /* Rounded corners for the scrollbar thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-600;
+  /* Color of the scrollbar thumb when hovered */
 }
 
 @layer base {

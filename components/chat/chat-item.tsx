@@ -17,6 +17,7 @@ import qs from 'query-string';
 import axios from 'axios';
 import { useModal } from '@/hooks/use-modal-store';
 import { useParams, useRouter } from 'next/navigation';
+import { linkify } from './linkify';
 
 type Props = {
     id: string;
@@ -201,7 +202,7 @@ const ChatItem = ({
                             <p className={cn("text-sm text-zinc-600 dark:text-zinc-300",
                                 deleted && "italic text-zinc-500 text-xs mt-1 dark:text-zinc-400"
                             )}>
-                                {content}
+                                {linkify(content)}
                                 {isUpdated && !deleted && (
                                     <span className='mx-2 text-[10px] text-zinc-500 dark:text-zinc-400'>
                                         (edited)
