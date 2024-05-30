@@ -8,7 +8,7 @@ export const ConversationAction = () => {
     return (
         <div>
             <ActionTooltip
-                label="Add a server"
+                label="Friends"
                 side="right"
                 align="center"
             >

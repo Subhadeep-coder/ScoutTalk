@@ -1,6 +1,6 @@
 import React from 'react'
 import { ScrollArea } from '../ui/scroll-area'
-import ServerSearch from '../server/server-search'
+// import ServerSearch from '../server/server-search'
 import { Separator } from '../ui/separator'
 import { currentProfile } from '@/lib/current-profile'
 import { redirect } from 'next/navigation'
@@ -22,9 +22,9 @@ const FriendsSidebar = async (props: Props) => {
             </button>
             <ScrollArea className='flex-1 px-3'>
                 <div className="mt-2">
-                    <ServerSearch
+                    {/* <ServerSearch
                         data={searchData as ServerSearchItem[]}
-                    />
+                    /> */}
                 </div>
                 <Separator className='my-2 bg-zinc-200 dark:bg-zinc-700 rounded-md' />
             </ScrollArea>
