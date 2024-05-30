@@ -7,6 +7,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import NavigationItem from "./navigation-item";
 import { ModeToggle } from "../mode-toggle";
 import { UserButton } from "@clerk/nextjs";
+import { ConversationAction } from "./conversation-action";
 
 export const NavigationSidebar = async () => {
     const profile = await currentProfile();
@@ -27,6 +28,7 @@ export const NavigationSidebar = async () => {
 
     return (
         <div className="space-y-4 flex flex-col items-center h-full text-primary w-full bg-[#e3e5e8] dark:bg-[#1e1f22] py-3">
+            <ConversationAction />
             <NavigationAction />
             <Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
             <ScrollArea className="flex-1 w-full">

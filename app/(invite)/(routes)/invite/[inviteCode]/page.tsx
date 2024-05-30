@@ -1,7 +1,9 @@
-import { currentProfile } from '@/lib/current-profile';
-import { db } from '@/lib/db';
-import { redirectToSignIn } from '@clerk/nextjs';
-import { redirect } from 'next/navigation';
+"use client";
+
+import InvitePage from '@/components/invite-page';
+import axios from 'axios';
+import {  useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 type Props = {
     params: {
@@ -9,49 +11,25 @@ type Props = {
     }
 }
 
-const InviteCodePage = async ({ params }: Props) => {
-    const profile = await currentProfile();
-    if (!profile) {
-        return redirectToSignIn();
-    }
-
-    if (!params.inviteCode) {
-        return redirect("/");
-    }
-
-    const existingServer = await db.server.findFirst({
-        where: {
-            inviteCode: params.inviteCode,
-            members: {
-                some: {
-                    profileId: profile.id
-                }
-            }
+const InviteCodePage = ({ params }: Props) => {
+    const [existsServer, setExistsServer] = useState(null);
+    const router = useRouter();
+    useEffect(() => {
+        async function fetchApi() {
+            const res = await axios.patch(`/api/servers/accept-invite/${params.inviteCode}`);
+            if (res.data.isMemberExistsInServer)
+                router.push(`/servers/${res.data.id}`);
+            else
+                setExistsServer(res.data.server);
         }
-    });
-
-    if (existingServer) {
-        return redirect(`/servers/${existingServer.id}`);
-    }
-
-    const server = await db.server.update({
-        where: {
-            inviteCode: params.inviteCode
-        },
-        data: {
-            members: {
-                create: [
-                    {
-                        profileId: profile.id
-                    }
-                ]
-            }
-        }
-    });
-
-    if (server) {
-        return redirect(`/servers/${server.id}`);
-    }
-    return null;
+        fetchApi();
+    }, [params.inviteCode, router])
+    if (!existsServer)
+        return;
+    return (
+        <InvitePage
+            server={existsServer!}
+        />
+    );
 }
 export default InviteCodePage
